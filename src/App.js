@@ -16,7 +16,7 @@ class App extends React.Component {
   }
 }
 
-
+//function component
 // const App = () => {
 //   const count = useSelector(state => state.counter.count);
 //   const dispatch = useDispatch();

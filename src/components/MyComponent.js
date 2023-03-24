@@ -1,29 +1,40 @@
 import React from "react";
+import AddUserInfor from "./AddUserInfor";
+import DisplayInfor from "./DisplayInfor"
 
 class MyComponent extends React.Component {
-    state ={
-        name: "Bùi Công Minh",
-        age: 25,
-        address: "Hoà Bình"
+    state = {
+        listUser: [
+            { id: 1, userName: 'Minh', age: 16 },
+            { id: 2, userName: 'Sữa ông thọ', age: 30 },
+            { id: 3, userName: 'Hà', age: 69 },
+        ]
     }
 
-    handelClick(event){
-        console.log('click me button! ');
-        // console.log(event);
-        console.log('My name is: ', this.state.name);
-    }
-    handelOnMouseOver(event){
-        // console.log('click me button! ');
-        console.log(event);
+    adNewUser(userObject) {
+        // console.log('check data from perent:', userObject);
+
+        // cách 1 (badcode vì thao tác trực tiếp đến data)
+        // let newList = this.state.listUser;
+        // console.log('check List data in parent: ', newList);
+        // newList.unshift(userObject);
+        // this.setState({
+        //     listUser: newList
+        // })
+
+        // cách 2: goodcode
+        this.setState({
+            listUser: [userObject, ...this.state.listUser]
+        })
     }
 
     // jsx 
     render() {
         return (
             <div>
-                My name is:  {this.state.name} and Im from {this.state.address}
-                <button onClick={this.handelClick}>click me</button>
-                <button onMouseOver = {this.handelOnMouseOver}>Hover me</button>
+                <AddUserInfor adNewUser={(userObject)=>{ this.adNewUser(userObject) } } />
+                <p></p>
+                <DisplayInfor listUser={this.state.listUser} />
             </div>
         );
     }
