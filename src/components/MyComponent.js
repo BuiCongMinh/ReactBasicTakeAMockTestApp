@@ -28,14 +28,27 @@ class MyComponent extends React.Component {
         })
     }
 
+    handelDeleteUser(userId){
+        let newListUser = this.state.listUser
+
+        newListUser = newListUser.filter(item => item.id !== userId ) 
+        
+        this.setState({
+            listUser: newListUser
+        }) 
+    }
+
     // jsx 
     render() {
         return (
-            <div>
-                <AddUserInfor adNewUser={(userObject)=>{ this.adNewUser(userObject) } } />
-                <p></p>
-                <DisplayInfor listUser={this.state.listUser} />
-            </div>
+            <>
+                <div className="a">
+                    <AddUserInfor adNewUser={(userObject) => { this.adNewUser(userObject) }} />
+                    <br></br>
+                    <DisplayInfor listUser={this.state.listUser} handelDeleteUser = { (userId)=>{ this.handelDeleteUser(userId) }} />
+                </div>
+                <div className="b"></div>
+            </>
         );
     }
 }
