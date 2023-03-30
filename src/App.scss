@@ -1,10 +1,108 @@
-
 body {
-  padding: 20px;
+  padding: 0px;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 1300px) {
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 1298px !important;
+  }
+
+}
+
+
+
+.app-container {
+  .header-container {
+    .btn-login {
+      border-radius: 5px;
+      margin-right: 15px;
+      border: 1px solid #535353;
+      padding: 0px 15px;
+      height: 40px;
+
+      &:hover {
+        background: rgb(204, 196, 196);
+      }
+    }
+
+    .btn-signup {
+      padding: 0px 15px;
+      border-radius: 5px;
+      background: #303030;
+      color: white;
+      height: 40px;
+
+      &:hover {
+        background: black;
+      }
+    }
+
+    .navbar {
+      padding-top: 20px;
+      z-index: 10;
+      // opacity: 1;
+      background-color: rgba(0, 0, 0, 0) !important;
+
+      .nav-link {
+        &.active {
+          color: #00bfff;
+        }
+      }
+    }
+  }
+
+  .homepage-container {
+    .homepage-content {
+      width: 50%;
+      padding: 0px 100px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+
+      .title-1 {
+        font-size: 63px;
+        font-weight: 600;
+      }
+
+      .title-2 {
+        font-size: 23px;
+      }
+
+      .title-3 {
+        button {
+          border-radius: 5px;
+          background: #303030;
+          color: white;
+          height: 40px;
+          padding: 9px 17px;
+
+          &:hover {
+            background: black;
+          }
+
+        }
+
+      }
+    }
+  }
+
+
+}
+
+video {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }
