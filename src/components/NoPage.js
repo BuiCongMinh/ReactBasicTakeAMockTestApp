@@ -1,9 +1,11 @@
 const NoPage = (props)=>{
-    const Cong = ()=>{
-        let x =  props.x + 1 
-    }
+   
     return(
-        <button onClick={Cong}> cộng  !</button>
+        <div>
+            <h1>
+                Err 404! Page Not Found
+            </h1>
+        </div>
     )
 }
 

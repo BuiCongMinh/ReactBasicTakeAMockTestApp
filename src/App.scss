@@ -69,10 +69,10 @@ body {
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 40px;
 
       .title-1 {
-        font-size: 63px;
+        font-size: 40px;
         font-weight: 600;
       }
 
@@ -87,6 +87,7 @@ body {
           color: white;
           height: 40px;
           padding: 9px 17px;
+          border: none;
 
           &:hover {
             background: black;

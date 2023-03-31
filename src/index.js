@@ -5,11 +5,13 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Router } from 'react-router-dom';
 import User from './components/User/User';
 import Admin from './components/Admin/Admin';
 import NoPage from './components/NoPage'
 import Home from './components/Home/Home';
+import DasBoard from './components/Admin/Content/DasBoard';
+import ManageUser from './components/Admin/Content/ManagerUser';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,9 +20,14 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} >
           <Route index element={<Home />} />
-          <Route path="/user" element={<User />} />
+          <Route path="user" element={<User />} />
         </Route>
-        <Route path="/admin" element={<Admin />} />
+
+        <Route path="/admins" element={<Admin />} >
+          <Route index element={<DasBoard />} />
+          <Route path='manage-user' element={<ManageUser />}/>
+        </Route>
+
         <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>
