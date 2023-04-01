@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc'
-import  axios  from 'axios';
-
+import { toast } from 'react-toastify';
+import { postCreateUser } from '../../../service/apiService'
 const ModalCreateUser = (props) => {
     // console.log('>>> check props:', props);
     const { show, setShow } = props;
@@ -32,35 +32,50 @@ const ModalCreateUser = (props) => {
         setImage(event.target.files[0])
     }
 
-    const handleSubmitCreateUser = async () => {
-        //call Api
-        // let data = {
-        //     email: email,
-        //     password: password,
-        //     username: username,
-        //     role: row,
-        //     userImage: image
-        // }
+    //validate (Phía clinet và bên phía server)
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
 
-        const data = new FormData();
-        data.append('email', email);
-        data.append('password', password);
-        data.append('username', username);
-        data.append('role', row);
-        data.append('userImage', image);
-        const res = await axios.post('http://localhost:8081/api/v1/participant', data)
-        console.log('>>> check data form ModalCreateUser: ', res);
+    const handleSubmitCreateUser = async () => {
 
         //validate
-        // alert('me')
-    }
+        if (!validateEmail(email)) {
+            toast.error('invalid Email ')
+            return
+        }
 
+        if (!password) {
+            toast.error('invalid Password ')
+            return
+        }
+
+        if (!username) {
+            toast.error('invalid username ')
+            return
+        }
+
+        let data = await postCreateUser(email, password, username, row, image)
+
+        console.log('>>> check res:', data);
+
+        if (data && data.EC === 0) {
+            toast.success(data.EM)
+            handleClose()
+        }
+
+        if (data && data.EC !== 0) {
+            toast.info(data.EM)
+        }
+
+    }
 
     return (
         <>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Add User Model
-            </Button> */}
 
             <Modal
                 show={show}
