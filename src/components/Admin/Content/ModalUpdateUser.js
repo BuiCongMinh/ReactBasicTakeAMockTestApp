@@ -1,12 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc'
 import { toast } from 'react-toastify';
 import { postCreateUser } from '../../../service/apiService'
-const ModalCreateUser = (props) => {
-    // console.log('>>> check props:', props);
-    const { show, setShow } = props;
+import _ from 'lodash'
+const ModalUpdateUser = (props) => {
+    const { showModalUpdateUser, setShow, dataUpdate } = props;
+
+    const [email, setEmail] = useState('');
+    const [password, setPassWord] = useState('');
+    const [username, setUserName] = useState('');
+    const [role, setRole] = useState('USER');
+    const [image, setImage] = useState('');
+    const [previewImage, setPreviewImage] = useState('');
+
+
+    //use Efect
+    useEffect(() => {
+        console.log('run user Effect (check dataUsser):', dataUpdate);
+        if (!_.isEmpty(dataUpdate)) {
+            setEmail(dataUpdate.email)
+            setUserName(dataUpdate.username)
+            setRole(dataUpdate.role)
+            setImage('');
+            if(dataUpdate.image){
+                setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
+            }
+        }
+
+    }, [dataUpdate]);
+
 
     const handleClose = () => {
         setShow(false);
@@ -18,16 +42,7 @@ const ModalCreateUser = (props) => {
         setPreviewImage('')
     }
 
-    const [email, setEmail] = useState('');
-    const [password, setPassWord] = useState('');
-    const [username, setUserName] = useState('');
-    const [role, setRole] = useState('USER');
-    const [image, setImage] = useState('');
-    const [previewImage, setPreviewImage] = useState('');
-
-
     const handleUploadFileImage = (event) => {
-
         setPreviewImage(URL.createObjectURL(event.target.files[0]))
         setImage(event.target.files[0])
     }
@@ -79,34 +94,30 @@ const ModalCreateUser = (props) => {
         <>
 
             <Modal
-                show={show}
+                show={showModalUpdateUser}
                 onHide={handleClose}
                 size="xl"
                 backdrop="static"
                 className='modal-add-user'
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Modal Update User</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-6">
                             <label className="form-label">Email</label>
-                            <input type="email" className="form-control" value={email} onChange={((event) => setEmail(event.target.value))} />
-                        </div>
-                        <div className="col-md-6">
-                            <label className="form-label">Password</label>
-                            <input type="password" className="form-control" value={password} onChange={((event) => setPassWord(event.target.value))} />
+                            <input type="email" className="form-control" value={email} onChange={((event) => setEmail(event.target.value))} disabled />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">UserName</label>
                             <input type="text" className="form-control" value={username} onChange={((event) => setUserName(event.target.value))} />
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Row</label>
-                            <select className="form-select" onChange={(event) => setRole(event.target.value)}>
-                                <option defaultValue="USER" >USER</option>
-                                <option defaultValue="ADMIN">ADMIN</option>
+                            <label className="form-label"> Row</label>
+                            <select className="form-select" value={role} onChange={(event) => setRole(event.target.value)}>
+                                <option value="USER"> USER </option>
+                                <option value="ADMIN">ADMIN</option>
                             </select>
                         </div>
                         <div className='col-md-12' >
@@ -140,4 +151,4 @@ const ModalCreateUser = (props) => {
     );
 }
 
-export default ModalCreateUser  
+export default ModalUpdateUser  
