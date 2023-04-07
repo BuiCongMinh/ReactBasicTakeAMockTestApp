@@ -1,20 +1,31 @@
 .admin-container {
     display: flex;
+
     .admin-sidebar {
         .pro-sidebar {
             height: 100vh !important;
-            }
+        }
     }
 
-    .admin-content{
+    .admin-content {
         width: 100%;
+
         .admin-header {
             height: 40px;
             border: 1px solid green;
+
+            svg {
+                width: 22px;
+                height: 21px;
+                cursor: pointer;
+
+                &:hover {
+                    background: #574f4f;
+                    color: rgb(233, 230, 225);
+                }
+            }
         }
-        
-        .admin-main{
-            
-        }
+
+        .admin-main {}
     }
 }

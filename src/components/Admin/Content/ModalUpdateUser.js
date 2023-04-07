@@ -3,10 +3,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc'
 import { toast } from 'react-toastify';
-import { postCreateUser } from '../../../service/apiService'
+import { putUpdateUser } from '../../../service/apiService'
 import _ from 'lodash'
 const ModalUpdateUser = (props) => {
-    const { showModalUpdateUser, setShow, dataUpdate } = props;
+    const { showModalUpdateUser, setShow, dataUpdate, resetUpdateData } = props;
 
     const [email, setEmail] = useState('');
     const [password, setPassWord] = useState('');
@@ -18,13 +18,13 @@ const ModalUpdateUser = (props) => {
 
     //use Efect
     useEffect(() => {
-        console.log('run user Effect (check dataUsser):', dataUpdate);
+        // console.log('run user Effect (check dataUsser):', dataUpdate);
         if (!_.isEmpty(dataUpdate)) {
             setEmail(dataUpdate.email)
             setUserName(dataUpdate.username)
             setRole(dataUpdate.role)
             setImage('');
-            if(dataUpdate.image){
+            if (dataUpdate.image) {
                 setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
             }
         }
@@ -40,6 +40,7 @@ const ModalUpdateUser = (props) => {
         setRole('USER')
         setImage('')
         setPreviewImage('')
+        resetUpdateData()
     }
 
     const handleUploadFileImage = (event) => {
@@ -64,17 +65,12 @@ const ModalUpdateUser = (props) => {
             return
         }
 
-        if (!password) {
-            toast.error('invalid Password ')
-            return
-        }
-
         if (!username) {
             toast.error('invalid username ')
             return
         }
 
-        let data = await postCreateUser(email, password, username, role, image)
+        let data = await putUpdateUser(dataUpdate.id, username, role, image)
 
         console.log('>>> check res:', data);
 
@@ -108,6 +104,10 @@ const ModalUpdateUser = (props) => {
                         <div className="col-md-6">
                             <label className="form-label">Email</label>
                             <input type="email" className="form-control" value={email} onChange={((event) => setEmail(event.target.value))} disabled />
+                        </div>
+                        <div className="col-md-6">
+                            <label className="form-label">password</label>
+                            <input type="password" className="form-control" value={password} onChange={((event) => setEmail(event.target.value))} disabled />
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">UserName</label>
