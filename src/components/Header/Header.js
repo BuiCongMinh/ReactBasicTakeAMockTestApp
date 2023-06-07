@@ -2,9 +2,27 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 const Header = () => {
+    const account = useSelector(state => {
+        return state.userReducer.account
+    })
+    const isAuthenticate = useSelector(state => {
+        return state.userReducer.isAuthenticated
+    })
+
+
+    const navigate = useNavigate()
+
+    const handleLogin = () => {
+        navigate('/login')
+    }
+    const handelRegister = () => {
+        navigate('/register')
+    }
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -22,19 +40,25 @@ const Header = () => {
 
                     </Nav>
                     <Nav>
-                        <button className='btn-login'>Login</button>
-                        <button className='btn-signup'>Sign Up</button>
-                        {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
+                        {!isAuthenticate ?
+                            <>
+                                <button className='btn-login' onClick={() => handleLogin()}>Login</button>
+                                <button className='btn-signup' onClick={() => handelRegister()}>Sign Up</button>
+                            </>:
+                            <NavDropdown title="Setting" id="basic-nav-dropdown">
 
-                            <NavDropdown.Item href="#action/3.1">Login</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">
-                                Log Out
-                            </NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">
-                                Profile
-                            </NavDropdown.Item>
-                        </NavDropdown> */}
+                                <NavDropdown.Item href="#action/3.1">
+                                    Login
+                                </NavDropdown.Item>
+                                <NavDropdown.Item href="#action/3.2">
+                                    Log Out
+                                </NavDropdown.Item>
+                                <NavDropdown.Divider />
+                                <NavDropdown.Item href="#action/3.4">
+                                    Profile
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>

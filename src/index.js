@@ -1,42 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import store from './redux/store';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route, Router } from 'react-router-dom';
-import User from './components/User/User';
-import Admin from './components/Admin/Admin';
-import NoPage from './components/NoPage'
-import Home from './components/Home/Home';
-import DasBoard from './components/Admin/Content/DasBoard';
-import ManageUser from './components/Admin/Content/ManagerUser';
+import Layout from './Layout';
+import { BrowserRouter } from 'react-router-dom';
+import 'nprogress/nprogress.css'
+import store, { persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} >
-          <Route index element={<Home />} />
-          <Route path="user" element={<User />} />
-        </Route>
-
-        <Route path="/admins" element={<Admin />} >
-          <Route index element={<DasBoard />} />
-          <Route path='manage-user' element={<ManageUser />}/>
-        </Route>
-
-        <Route path="*" element={<NoPage />} />
-      </Routes>
-    </BrowserRouter>
-    {/* <React.StrictMode> */}
-    {/* </React.StrictMode> */}
+    <PersistGate loading={<div>Loading...</div>} persistor={persistor}>
+      <BrowserRouter>
+        <Layout />
+      </BrowserRouter>
+    </PersistGate>
   </Provider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

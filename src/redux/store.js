@@ -1,8 +1,35 @@
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import rootReducer from './reducer/rootReducer';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { configureStore } from '@reduxjs/toolkit'
+import userReducer from './slice/userSlice'
+import {
+  persistStore, persistReducer, FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
+const persistConfig = {
+  key: 'minhvn',
+  storage,
+  whitelist: ['account', 'isAuthenticated'],
+}
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, userReducer)
+
+const store = configureStore({
+  reducer: {
+    userReducer: persistedReducer
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+})
+
+export let persistor = persistStore(store)
+
+export default store

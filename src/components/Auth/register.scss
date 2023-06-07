@@ -1,0 +1,63 @@
+.register-container {
+    background: rgb(218, 212, 200);
+    height: 100vh ;
+    font-size: 12px;
+
+    .header {
+        display: flex;
+        justify-content: end;
+        padding: 12px 12px;
+        align-items: center;
+        font-size: 20px;
+
+        span {
+            margin-right: 9px;
+        }
+
+        button {
+            box-shadow: 5px 5px 5px;
+            border: 3px;
+
+            &:hover {
+                background-color: rgba(248, 248, 15, 0);
+            }
+        }
+    }
+
+    .title {
+        font-size: 25px;
+        text-align: center;
+        padding: 20px 0px;
+    }
+
+    .welcome {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .content-formRegister {
+        .validatePassFale {
+            display: none;
+        }
+
+        .validatePassTrue {
+            font-size: 15px;
+
+            .validatePassFale { color: red;}
+            .oneDigitFalse{ color: red;}
+            .lowerCaseFalse{ color: red;}
+            .upperCaseFlase{ color: red;}
+            .mentionedCharactersFalse{ color: red;}
+            .onlyAZFalse{color: red;}
+
+            .validatePassTrue{color:green;}
+            .oneDigitTrue{color:green;}
+            .lowerCaseTrue{color:green;}
+            .upperCaseTrue{color:green;}
+            .mentionedCharactersTrue{color:green;}
+            .onlyAZTrue{color: green;}
+
+        }
+    }
+
+}
