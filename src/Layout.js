@@ -11,6 +11,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Register from './components/Auth/Register';
 import ListQuiz from './components/User/ListQuiz'
+import DetailQuiz from './components/User/DetailQuiz';
+import ManageQuiz from './components/Admin/Content/Quiz/ManagerQuiz';
 
 const Layout = (props) => {
     return (
@@ -18,17 +20,20 @@ const Layout = (props) => {
             <Routes>
                 <Route path="/" element={<App />} >
                     <Route index element={<Home />} />
-                    <Route path="/user" element={<ListQuiz/>} />
+                    <Route path="/user" element={<ListQuiz />} />
                 </Route>
+
+                <Route path="/quiz/:id" element={<DetailQuiz />} />
 
                 <Route path="/admins" element={<Admin />} >
                     <Route index element={<DasBoard />} />
                     <Route path='manage-user' element={<ManageUser />} />
+                    <Route path='manage-quizzes' element={<ManageQuiz />} />
                 </Route>
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path="*" element={<NoPage />} />
-            </Routes>
+            </Routes> 
 
             <ToastContainer
                 position="top-center"

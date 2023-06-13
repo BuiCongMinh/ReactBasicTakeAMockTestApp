@@ -5,7 +5,7 @@ import { FcPlus } from 'react-icons/fc'
 import { toast } from 'react-toastify';
 import { postCreateUser } from '../../../service/apiService'
 const ModalCreateUser = (props) => {
-    
+
     // console.log('>>> check props:', props);
     const { show, setShow } = props;
 
@@ -28,9 +28,13 @@ const ModalCreateUser = (props) => {
 
 
     const handleUploadFileImage = (event) => {
+        if (event.target && event.target.files && event.target.files[0]) {
+            setPreviewImage(URL.createObjectURL(event.target.files[0]))
+            setImage(event.target.files[0])
+        }
+        else {
 
-        setPreviewImage(URL.createObjectURL(event.target.files[0]))
-        setImage(event.target.files[0])
+        }
     }
 
     //validate (Phía clinet và bên phía server)

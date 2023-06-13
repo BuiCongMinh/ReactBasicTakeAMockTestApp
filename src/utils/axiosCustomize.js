@@ -5,8 +5,8 @@ import store from '../redux/store'
 
 NProgress.configure({
     // tham khảo thêm tại thư viện " https://www.npmjs.com/package/nprogress "
-    showSpinner: false,
-    trickleSpeed: 50
+    showSpinner: true,
+    trickleSpeed: 20
 })
 
 const instance = axios.create({
@@ -14,9 +14,7 @@ const instance = axios.create({
 });
 instance.interceptors.request.use(function (config) {
     const accent_token = store?.getState()?.userReducer?.account?.access_token
-    config.headers["Authorization"] = `Bearer  + ${accent_token}`;
-
-
+    config.headers["Authorization"] = `Bearer ${accent_token}`;
     NProgress.start()
     // Do something before request is sent
     return config;

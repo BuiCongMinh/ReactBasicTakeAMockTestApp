@@ -12,7 +12,6 @@ const postCreateUser = (email, password, username, role, image) => {
     return axios.post('api/v1/participant', data)
 }
 const putUpdateUser = (id, username, role, image) => {
-    console.log('>>>check id:', id);
     //submit data
     const data = new FormData();
     data.append('username', username);
@@ -33,15 +32,36 @@ const getUserPaginate = (page, limit) => {
 }
 
 const postLogin = (email, password) => {
-    return axios.post('api/v1/login', { email, password})
+    return axios.post('api/v1/login', { email, password })
 }
 
-const postRegister = (email,password,username) => {
-    return axios.post('api/v1/register', {email,password,username})
+const postRegister = (email, password, username) => {
+    return axios.post('api/v1/register', { email, password, username })
 }
 
-const getQuizByUser = ()=>{
+const getQuizByUser = () => {
     return axios.get('api/v1/quiz-by-participant')
+}
+const getDataQuiz = (id) => {
+    return axios.get(`api/v1/questions-by-quiz?quizId=${id}`)
+}
+const postSubmitQuiz = (data) => {
+    return axios.post('api/v1/quiz-submit', { ...data })
+}
+const postCreateNewQuiz = (description, name, difficulty, image) => {
+    const data = new FormData();
+    console.log('>>> check:', description, name, difficulty, image);
+
+    data.append('description', description);
+    data.append('name', name);
+    data.append('difficulty', difficulty);
+    data.append('quizImage', image);
+
+    return axios.post('api/v1/quiz', data)
+}
+
+const getAllQuizForAdmin = () => {
+    return axios.get('api/v1/quiz/all')
 }
 export {
     postCreateUser,
@@ -51,5 +71,9 @@ export {
     getUserPaginate,
     postLogin,
     postRegister,
-    getQuizByUser
+    getQuizByUser,
+    getDataQuiz,
+    postSubmitQuiz,
+    postCreateNewQuiz,
+    getAllQuizForAdmin
 }

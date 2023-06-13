@@ -14,11 +14,13 @@ import { FaTachometerAlt, FaGem, FaList, FaGithub, FaFacebook, FaRegLaughWink, F
 import sidebarBg from '../../assets/bg2.jpg';
 import { DiReact } from 'react-icons/di'
 import { MdDashboard } from 'react-icons/md'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
+    const navigate = useNavigate()
+
     return (
         <>
             <ProSidebar
@@ -39,10 +41,17 @@ const SideBar = (props) => {
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
+
+                            cursor: 'pointer'
                         }}
+                        onClick={() => navigate('/')}
                     >
                         <DiReact fontSize='30px' color='00bfff' />
-                        <span>Web MinhVN</span>
+                        <span
+
+                        >
+                            Web MinhVN
+                        </span>
                     </div>
                 </SidebarHeader>
 
@@ -53,7 +62,7 @@ const SideBar = (props) => {
                             suffix={<span className="badge red">New</span>}
                         >
                             dashboard
-                            <Link to = ''/>
+                            <Link to='' />
                         </MenuItem>
                         {/* <MenuItem icon={<FaGem />}> Futures </MenuItem> */}
                     </Menu>
@@ -62,8 +71,8 @@ const SideBar = (props) => {
                             title="Features"
                             icon={<FaGem />}
                         >
-                            <MenuItem> Quản Lý User <Link to = 'manage-user' /> </MenuItem>
-                            <MenuItem> Quản Lý Bài Quiz</MenuItem>
+                            <MenuItem> Quản Lý User <Link to='manage-user' /> </MenuItem>
+                            <MenuItem> Quản Lý Bài Quiz<Link to='manage-quizzes' /> </MenuItem>
                             <MenuItem> Quản Lý Câu Hỏi</MenuItem>
                         </SubMenu>
 
